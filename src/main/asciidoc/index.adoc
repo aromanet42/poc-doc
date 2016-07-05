@@ -7,6 +7,13 @@ Jane Doe;
 :toclevels: 4
 :sectlinks:
 
+++++
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<script src="js/functions.js"></script>
+++++
+
 [introduction]
 = Introduction
 
@@ -24,8 +31,6 @@ use of HTTP verbs.
 
 | `GET`
 | Used to retrieve a resource
-
-include::{snippets}/list-people/response-fields.adoc[]
 
 | `POST`
 | Used to create a new resource
@@ -70,28 +75,4 @@ use of HTTP status codes.
 [[resources]]
 = Resources
 
-
-
-
-[[resources-person]]
-== Person
-The Person resource is used to create, modify and list people.
-
-[[resource-people-list]]
-=== Listing people
-A `GET` request lists all of the service's people.
-
-include::{snippets}/list-people/response-fields.adoc[]
-
-include::{snippets}/list-people-xml/response-fields.adoc[]
-
-==== Example request
-
-include::{snippets}/list-people/curl-request.adoc[]
-include::{snippets}/list-people-xml/curl-request.adoc[]
-
-==== Example response
-
-include::{snippets}/list-people/http-response.adoc[]
-include::{snippets}/list-people-xml/http-response.adoc[]
-The snippets placeholder is replaced by Spring Rest Doc to the build/generated-snippets folder.
+include::getorder.adoc[]

@@ -1,0 +1,30 @@
+
+[[resources-person]]
+== Service XML and JSON
+blabla qui décrit la resource
+
+[[resource-people-list]]
+=== Listing people
+A `GET` request lists all of the service's people.
+
+include::{snippets}/order-bean_json-2/response-fields.adoc[]
+
+
+==== Example request
+
+[role="toggle-example"]
+XML
+[role="example"]
+include::{snippets}/order-bean_json-1/curl-request.adoc[]
+[role="toggle-example"]
+JSON
+[role="example"]
+include::{snippets}/order-bean_json-2/curl-request.adoc[]
+
+==== Example response
+
+XML
+include::{snippets}/order-bean_json-1/http-response.adoc[]
+JSON
+include::{snippets}/order-bean_json-2/http-response.adoc[]
+
