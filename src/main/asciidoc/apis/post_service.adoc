@@ -1,0 +1,25 @@
+
+[[resources-post-service]]
+== Service POST
+blabla qui décrit la resource
+
+[[resource-post-service-1]]
+=== Créer un service
+A `POST` request pour créer un service
+
+include::{snippets}/post_service_request_body-1/request-fields.adoc[]
+
+
+==== Example request
+
+[role="toggle-example"]
+JSON
+[role="example"]
+include::{snippets}/post_service_request_body-1/curl-request.adoc[]
+include::{snippets}/post_service_request_body-1/http-request.adoc[]
+
+==== Example response
+
+JSON
+include::{snippets}/post_service_request_body-1/http-response.adoc[]
+

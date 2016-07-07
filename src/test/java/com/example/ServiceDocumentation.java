@@ -27,9 +27,11 @@ import java.util.List;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -58,7 +60,7 @@ public class ServiceDocumentation {
 
     @Test
     public void listPeople() throws Exception {
-        this.document.snippets(docSnipper(true, root(), getDocFields()));
+        this.document.snippets(responseDocSnipper(true, rootService(), getServiceDocFields()));
 
         this.mockMvc.perform(get("/service").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
@@ -66,9 +68,29 @@ public class ServiceDocumentation {
 
     @Test
     public void listPeopleXml() throws Exception {
-        this.document.snippets(docSnipper(false, root(), getDocFields()));
+        this.document.snippets(responseDocSnipper(false, rootService(), getServiceDocFields()));
 
         this.mockMvc.perform(get("/service").accept(MediaType.APPLICATION_XML))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void post_service_request_parameters() throws Exception {
+        this.mockMvc.perform(post("/service")
+                .param("code", "NEW_SERVICE_CODE")
+                .param("name", "this is the new service name")
+        )
+                .andDo(document("{method-name}-{step}", requestParameters(
+                        parameterWithName("code").description("service code"),
+                        parameterWithName("name").description("service name")
+                )))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void post_service_request_body() throws Exception {
+        this.mockMvc.perform(post("/service").content("{\"code\": \"NEW_CODE\", \"name\":\"this is the new service name\"}"))
+                .andDo(document("{method-name}-{step}", requestDocSnipper(true, rootService(), getServiceDocFields())))
                 .andExpect(status().isOk());
     }
 
@@ -80,7 +102,7 @@ public class ServiceDocumentation {
         this.mockMvc.perform(get("/service/orderBean").accept(MediaType.APPLICATION_XML))
                 .andExpect(status().isOk());
 
-        this.document.snippets(docSnipper(true, orderBeanRoot, fields));
+        this.document.snippets(responseDocSnipper(true, orderBeanRoot, fields));
         this.mockMvc.perform(get("/service/orderBean").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -95,17 +117,29 @@ public class ServiceDocumentation {
         };
     }
 
-    private DocField root() {
+    private DocField rootService() {
         return new DocField("service", Service.class, "", true);
     }
 
-    private DocField[] getDocFields() {
+    private DocField[] getServiceDocFields() {
         return new DocField[]{
                 new DocField("code", String.class, "The service' code"),
                 new DocField("name", String.class, "The service' name")};
     }
 
-    private Snippet docSnipper(boolean json, DocField root, DocField... docFields) {
+    private Snippet responseDocSnipper(boolean json, DocField root, DocField... docFields) {
+        FieldDescriptor[] fieldDescriptors = buildFieldDescriptors(json, root, docFields);
+
+        return responseFields(fieldDescriptors);
+    }
+
+    private Snippet requestDocSnipper(boolean json, DocField root, DocField... docFields) {
+        FieldDescriptor[] fieldDescriptors = buildFieldDescriptors(json, root, docFields);
+
+        return requestFields(fieldDescriptors);
+    }
+
+    private FieldDescriptor[] buildFieldDescriptors(boolean json, DocField root, DocField[] docFields) {
         String rootPath = root.path;
 
         List<DocField> docFieldsToDoc = new ArrayList<>();
@@ -114,11 +148,9 @@ public class ServiceDocumentation {
         }
         Collections.addAll(docFieldsToDoc, docFields);
 
-        FieldDescriptor[] fieldDescriptors = docFieldsToDoc.stream()
+        return docFieldsToDoc.stream()
                 .map(docField -> fieldDescriptorBuilder(docField, rootPath, json))
                 .toArray(FieldDescriptor[]::new);
-
-        return responseFields(fieldDescriptors);
     }
 
     private FieldDescriptor fieldDescriptorBuilder(DocField docField, String rootPath, boolean json) {
