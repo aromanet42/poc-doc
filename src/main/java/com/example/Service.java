@@ -1,10 +1,13 @@
 package com.example;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Service {
 
+    @ApiModelProperty("code du Service")
     private String code;
     private String name;
 

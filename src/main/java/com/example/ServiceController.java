@@ -4,6 +4,9 @@ import com.example.beans.ISOCurrencyCode;
 import com.example.beans.OrderBean;
 import com.example.beans.OrderLineBean;
 import com.example.beans.OrderPaymentInfoBean;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,10 +18,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/service")
+@Api
 public class ServiceController {
 
     @RequestMapping(value = "", method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @ApiOperation(value = "Method renvoyant un Service")
     public Service getMyService() {
         return new Service("DFKEFJ", "DSISDKF");
     }
@@ -26,11 +31,12 @@ public class ServiceController {
 
     @RequestMapping(value = "", method = RequestMethod.POST,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public void serviceCreation(Service service) {
+    public void serviceCreation(@ApiParam("service à créer")Service service) {
     }
 
     @RequestMapping(value = "/orderBean", method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @ApiOperation("creates a new order")
     public OrderBean orderBean() {
         OrderBean orderBean = new OrderBean();
         orderBean.setChannelCode("ChannelCode");
