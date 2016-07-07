@@ -75,4 +75,4 @@ use of HTTP status codes.
 [[resources]]
 = Resources
 
-include::getorder.adoc[]
+include::api/getorder.adoc[]
