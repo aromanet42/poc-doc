@@ -15,4 +15,10 @@ public class ServiceController {
         return new Service("DFKEFJ", "DSISDKF");
     }
 
+
+    @RequestMapping(value = "", method = RequestMethod.POST,
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public void getMyService(Service service) {
+    }
+
 }
