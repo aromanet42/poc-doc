@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,9 +31,9 @@ public class ServiceController {
 
 
     @RequestMapping(value = "/", method = RequestMethod.POST,
-            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ApiOperation("creates a service")
-    public void serviceCreation(@ApiParam("service à créer")Service service) {
+    public void serviceCreation(@RequestBody @ApiParam("service à créer") Service service) {
     }
 
     @RequestMapping(value = "/orderBean", method = RequestMethod.GET,
