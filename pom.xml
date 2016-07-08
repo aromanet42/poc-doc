@@ -44,12 +44,6 @@
             <artifactId>swagger-core</artifactId>
             <version>1.5.9</version>
         </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-staticdocs</artifactId>
-            <version>2.5.0</version>
-            <scope>test</scope>
-        </dependency>
 
 	</dependencies>
 
@@ -70,23 +64,50 @@
 				</configuration>
 			</plugin>
 
-
             <plugin>
-                <groupId>org.asciidoctor</groupId>
-                <artifactId>asciidoctor-maven-plugin</artifactId>
-                <version>1.5.2</version>
+                <groupId>com.github.kongchen</groupId>
+                <artifactId>swagger-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <apiSources>
+                        <apiSource>
+                            <springmvc>true</springmvc>
+                            <locations>com.example</locations>
+                            <schemes>http,https</schemes>
+                            <info>
+                                <title>Ma super documenation API</title>
+                                <version>v1</version>
+                                <description>Working sample of Spring MVC annotations</description>
+                                <termsOfService>
+                                    http://www.github.com
+                                </termsOfService>
+                                <contact>
+                                    <email>your@email.com</email>
+                                    <name>Name Surname</name>
+                                    <url>http</url>
+                                </contact>
+                                <license>
+                                    <url>http://www.license.com</url>
+                                    <name>License name</name>
+                                </license>
+                            </info>
+
+                            <templatePath>${basedir}/src/main/swagger/strapdown.html.hbs</templatePath>
+
+                            <!--comment this to disable generation of html-->
+                            <outputPath>${project.build.directory}/generated/document.html</outputPath>
+
+                            <!--comment this to disable generation of json-->
+                            <swaggerDirectory>${project.build.directory}/generated/swagger-ui</swaggerDirectory>
+                        </apiSource>
+                    </apiSources>
+                </configuration>
                 <executions>
                     <execution>
-                        <id>generate-docs</id>
-                        <phase>prepare-package</phase>
+                        <phase>compile</phase>
                         <goals>
-                            <goal>process-asciidoc</goal>
+                            <goal>generate</goal>
                         </goals>
-                        <configuration>
-                            <backend>html</backend>
-                            <doctype>book</doctype>
-                            <sourceDirectory>target/docs/asciidoc/generated</sourceDirectory>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>

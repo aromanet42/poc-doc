@@ -1,10 +1,7 @@
 
 = Principe
 
-- La webapp génère sa propre doc swagger (format json) à partir du Docket configuré dans MiraklNewDocApplication
-- toutes les méthodes avec au moins une annot Swagger (@ApiOperation, @ApiParam, etc) sont documentées
-- Le test ServiceDocumentation créé les fichiers AsciiDoctor à partir de la doc JSON
-- un plugin Maven converti les fichiers AsciiDoctor en HTML
+- toutes les méthodes avec l'annot Swagger @ApiOperation sont documentées
 
 = Pros
 
@@ -13,5 +10,5 @@
 
 = Cons
 
-- 3 fichiers générés : overview, paths (liste des resources), definitions (liste des Dtos)
+- attention, il faut que l'attribut value du @RequestMapping ait une valeur (meme si c'est juste /)
 - il n'y a pas d'exemple de requete/réponse

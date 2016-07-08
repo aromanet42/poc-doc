@@ -21,7 +21,7 @@ import java.util.List;
 @Api
 public class ServiceController {
 
-    @RequestMapping(value = "", method = RequestMethod.GET,
+    @RequestMapping(value = "/", method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ApiOperation(value = "Method renvoyant un Service")
     public Service getMyService() {
@@ -29,8 +29,9 @@ public class ServiceController {
     }
 
 
-    @RequestMapping(value = "", method = RequestMethod.POST,
+    @RequestMapping(value = "/", method = RequestMethod.POST,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @ApiOperation("creates a service")
     public void serviceCreation(@ApiParam("service à créer")Service service) {
     }
 
