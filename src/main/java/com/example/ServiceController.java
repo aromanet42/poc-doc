@@ -26,7 +26,7 @@ public class ServiceController {
 
     @RequestMapping(value = "", method = RequestMethod.POST,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public void getMyService(Service service) {
+    public void serviceCreation(Service service) {
     }
 
     @RequestMapping(value = "/orderBean", method = RequestMethod.GET,
