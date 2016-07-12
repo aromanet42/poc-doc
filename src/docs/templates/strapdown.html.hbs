@@ -2,7 +2,7 @@
 <html>
 <title>API Document</title>
 
-<xmp theme="united" style="display:none;">
+<xmp style="display:none;">
     {{>markdown}}
 </xmp>
 
@@ -14,18 +14,26 @@
 
 <script type="text/javascript">
     $().ready(function () {
-        $('.curl').each(function () {
-            var operationId = $(this).attr('data-operationId');
-            var div = $(this);
-            div.load("../snippets/" + operationId + "/curl-request.html", function(response, status){
-                console.log('loading done for ' + operationId + " with status : "+status);
+        function loadHtml(element, url) {
+            element.load(url, function(response, status){
                 if(status == 'error'){
-                    div.hide();
+                    element.hide();
+
+                    var elementToHide = element.attr('data-hide-on-load-error');
+                    if(elementToHide !== undefined){
+                        element.prev(elementToHide).hide();
+                        element.parent(elementToHide).hide();
+                    }
                 }
             });
+        }
+
+        $('.curl').each(function () {
+            var operationId = $(this).attr('data-operationId');
+            loadHtml($(this), "../snippets/" + operationId + "/curl-request.html");
         });
 
-        $('.example').each(function () {
+        $('.snippet').each(function () {
             var operationId = $(this).attr('data-operationId');
             var ioType = $(this).attr('data-io');
             var mediaType = $(this).attr('data-type');
@@ -35,7 +43,7 @@
                 directory += "_xml";
             }
 
-            $(this).load("../snippets/" + directory + "/http-" + ioType + ".html");
+            loadHtml($(this), "../snippets/" + directory + "/http-" + ioType + ".html");
         });
 
     });
