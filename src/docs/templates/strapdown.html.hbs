@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<title>API Document</title>
+
+<xmp theme="united" style="display:none;">
+    {{>markdown}}
+</xmp>
+
+<script src="http://strapdownjs.com/v/0.2/strapdown.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="../resources/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../resources/bootstrap.min.css"/>
+
+
+<script type="text/javascript">
+    $().ready(function () {
+        $('.curl').each(function () {
+            var operationId = $(this).attr('data-operationId');
+            var div = $(this);
+            div.load("../snippets/" + operationId + "/curl-request.html", function(response, status){
+                console.log('loading done for ' + operationId + " with status : "+status);
+                if(status == 'error'){
+                    div.hide();
+                }
+            });
+        });
+
+        $('.example').each(function () {
+            var operationId = $(this).attr('data-operationId');
+            var ioType = $(this).attr('data-io');
+            var mediaType = $(this).attr('data-type');
+
+            var directory = operationId;
+            if(mediaType == 'application/xml') {
+                directory += "_xml";
+            }
+
+            $(this).load("../snippets/" + directory + "/http-" + ioType + ".html");
+        });
+
+    });
+</script>
+
+</html>
