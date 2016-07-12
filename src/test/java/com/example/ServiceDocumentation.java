@@ -54,7 +54,7 @@ public class ServiceDocumentation {
     }
 
     @Test
-    public void listPeopleXml() throws Exception {
+    public void getMyService_xml() throws Exception {
         this.mockMvc.perform(get("/service/").accept(MediaType.APPLICATION_XML))
                 .andExpect(status().isOk());
     }

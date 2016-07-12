@@ -48,8 +48,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 
-        <swagger.json.path>${project.build.directory}/generated/swagger-ui</swagger.json.path>
-        <asciidoc.path>${project.build.directory}/asciidoc</asciidoc.path>
+        <doc.path>${project.build.directory}/docs</doc.path>
+        <swagger.json.path>${doc.path}/1-swagger</swagger.json.path>
+        <asciidoc.path>${doc.path}/2-asciidoc</asciidoc.path>
+        <html.path>${doc.path}/3-html</html.path>
 
     </properties>
 
@@ -197,7 +199,7 @@
                         <id>convertSwagger2markup-all</id>
                         <configuration>
                             <swaggerInput>${swagger.json.path}/all/swagger.json</swaggerInput>
-                            <outputDir>${asciidoc.path}-all</outputDir>
+                            <outputDir>${asciidoc.path}/all</outputDir>
                         </configuration>
                     </execution>
                     <execution>
@@ -208,7 +210,7 @@
                         <id>convertSwagger2markup-shop</id>
                         <configuration>
                             <swaggerInput>${swagger.json.path}/shop/swagger.json</swaggerInput>
-                            <outputDir>${asciidoc.path}-shop</outputDir>
+                            <outputDir>${asciidoc.path}/shop</outputDir>
                         </configuration>
                     </execution>
                 </executions>
@@ -234,8 +236,8 @@
                             <goal>process-asciidoc</goal>
                         </goals>
                         <configuration>
-                            <sourceDirectory>${asciidoc.path}-all</sourceDirectory>
-                            <outputDirectory>${project.build.directory}/generated-docs/all</outputDirectory>
+                            <sourceDirectory>${asciidoc.path}/all</sourceDirectory>
+                            <outputDirectory>${html.path}/all</outputDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -245,8 +247,8 @@
                             <goal>process-asciidoc</goal>
                         </goals>
                         <configuration>
-                            <sourceDirectory>${asciidoc.path}-shop</sourceDirectory>
-                            <outputDirectory>${project.build.directory}/generated-docs/shop</outputDirectory>
+                            <sourceDirectory>${asciidoc.path}/shop</sourceDirectory>
+                            <outputDirectory>${html.path}/shop</outputDirectory>
 
                         </configuration>
                     </execution>
