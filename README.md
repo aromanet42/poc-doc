@@ -11,6 +11,7 @@
 - la doc est près du code
 - il n'y a pas besoin de décrire les objets plusieurs fois (JSON/XML)
 - exemples de requete/réponse généré par les tests (RestDoc)
+- possibilité d'avoir des Filtres
 
 = Cons
 

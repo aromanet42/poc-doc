@@ -38,7 +38,7 @@ public class ServiceController {
 
     @RequestMapping(value = "/orderBean", method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    @ApiOperation("creates a new order")
+    @ApiOperation(value = "creates a new order", tags = "shop")
     public OrderBean orderBean() {
         OrderBean orderBean = new OrderBean();
         orderBean.setChannelCode("ChannelCode");
