@@ -18,9 +18,27 @@
 
 {{/info}}
 
-{{#if consumes}}**Consumes:** {{join consumes ", "}}{{/if}}
+On peut ici mettre des infos génériques sur les APIs
 
-{{#if produces}}**Produces:** {{join produces ", "}}{{/if}}
+# Authentication
+
+You can authenticate through API by sending your API key in a header:
+
+    curl -H "Authorization: 123456" https://[HOSTNAME]/api/[API-URL]
+
+# Request Content-Type
+
+You can choose between json or xml format.
+
+Use Content-Type Header to set the request content type.
+
+    curl -H "Content-Type: application/json" https://[HOSTNAME]/api/[API-URL]
+
+Accepted values are
+
+- application/json
+- application/xml
+- multipart/form-data_(Allow to send file and form data. See the cURL samples at the end of this page)_
 
 {{#if securityDefinitions}}
 # Security Definitions
@@ -28,6 +46,17 @@
 {{> security}}
 
 # APIs
+
+<div class="list-group table-of-contents">
+{{#each paths}}
+    {{#this}}
+    {{#get}}<a class="list-group-item" href="#{{get.operationId}}">GET {{@key}}</a>{{/get}}
+    {{#post}}<a class="list-group-item" href="#{{post.operationId}}">POST {{@key}}</a>{{/post}}
+    {{#put}}<a class="list-group-item" href="#{{put.operationId}}">PUT {{@key}}</a>{{/put}}
+    {{/this}}
+{{/each}}
+</div>
+
 
 {{#each paths}}
 ## {{@key}}
