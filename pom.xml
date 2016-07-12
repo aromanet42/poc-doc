@@ -182,6 +182,8 @@
                     <outputDir>${asciidoc.path}</outputDir>
                     <config>
                         <swagger2markup.markupLanguage>ASCIIDOC</swagger2markup.markupLanguage>
+                        <swagger2markup.interDocumentCrossReferencesEnabled>true</swagger2markup.interDocumentCrossReferencesEnabled>
+                        <!-- include snippets (examples of JSON/XML)-->
                         <swagger2markup.extensions.springRestDocs.snippetBaseUri>${project.build.directory}/generated-snippets</swagger2markup.extensions.springRestDocs.snippetBaseUri>
                         <swagger2markup.extensions.springRestDocs.defaultSnippets>true</swagger2markup.extensions.springRestDocs.defaultSnippets>
                     </config>
@@ -220,6 +222,9 @@
                 <configuration>
                     <backend>html</backend>
                     <doctype>book</doctype>
+                    <attributes>
+                        <toc>left</toc>
+                    </attributes>
                 </configuration>
                 <executions>
                     <execution>
