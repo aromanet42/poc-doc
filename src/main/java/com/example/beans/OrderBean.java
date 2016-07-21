@@ -10,15 +10,19 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderBean {
 
-    @ApiModelProperty("this is the commercial id of the order")
+    @ApiModelProperty(value = "this is the commercial id of the order", required = true)
     private String commercialId;
 
     private List<OrderLineBean> orderLines;
 
+    @ApiModelProperty(required = true)
     private OrderPaymentInfoBean paymentInfo;
 
-    private Boolean scored;
+    @Deprecated
+    @ApiModelProperty
+    private Boolean scored = true;
 
+    @Deprecated
     private String shippingZoneCode;
 
     private String channelCode;

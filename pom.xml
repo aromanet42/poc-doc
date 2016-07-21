@@ -76,7 +76,11 @@
             <artifactId>swagger-core</artifactId>
             <version>1.5.9</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.github.kongchen</groupId>
+            <artifactId>swagger-maven-plugin</artifactId>
+            <version>3.1.3</version>
+        </dependency>
 		<dependency>
 			<groupId>org.springframework.restdocs</groupId>
 			<artifactId>spring-restdocs-mockmvc</artifactId>
@@ -131,7 +135,7 @@
             <plugin>
                 <groupId>com.github.kongchen</groupId>
                 <artifactId>swagger-maven-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.1.3</version>
                 <configuration>
                     <apiSources>
                         <apiSource>
@@ -157,6 +161,7 @@
                             </info>
 
                             <templatePath>${basedir}/src/docs/templates/strapdown.html.hbs</templatePath>
+                            <modelConverters>com.example.swagger.ModelConverter</modelConverters>
                         </apiSource>
                     </apiSources>
                 </configuration>
@@ -186,6 +191,7 @@
                         <configuration>
                             <apiSources>
                                 <apiSource>
+                                    <!--<modelConverters>com.example.swagger.ModelConverter</modelConverters>-->
                                     <swaggerInternalFilter>com.example.swagger.SwaggerShopFilter</swaggerInternalFilter>
                                     <swaggerDirectory>${swagger.json.path}/shop</swaggerDirectory>
                                     <outputPath>${html.path}/shop/document.html</outputPath>

@@ -4,9 +4,7 @@ import com.example.beans.ISOCurrencyCode;
 import com.example.beans.OrderBean;
 import com.example.beans.OrderLineBean;
 import com.example.beans.OrderPaymentInfoBean;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +22,9 @@ public class ServiceController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    @ApiOperation(value = "Method renvoyant un Service")
+    @ApiOperation(value = "Method renvoyant un Service quand lersevrice fezfezf" +
+            "fzefjkezjflkejf" +
+            "fjepjfze")
     public Service getMyService() {
         return new Service("DFKEFJ", "DSISDKF");
     }
@@ -32,13 +32,14 @@ public class ServiceController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST,
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    @ApiOperation("creates a service")
+    @ApiOperation(value = "creates a service")
+    @Deprecated
     public void serviceCreation(@RequestBody @ApiParam("service à créer") Service service) {
     }
 
     @RequestMapping(value = "/orderBean", method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    @ApiOperation(value = "creates a new order", tags = "shop")
+    @ApiOperation(value = "creates a new order", tags = "shop", notes = "koko")
     public OrderBean orderBean() {
         OrderBean orderBean = new OrderBean();
         orderBean.setChannelCode("ChannelCode");

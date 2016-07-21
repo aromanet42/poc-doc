@@ -115,7 +115,8 @@ Accepted values are
     </tr>
     {{#each this.properties}}
         <tr>
-            <td>{{@key}}</td>
+            <td>{{@key}}
+                {{#if vendorExtensions.x-deprecated}}<span style="color:red">DEPRECATED</span> {{/if}}</td>
             <td>
                 {{#ifeq type "array"}}
                     {{#items.$ref}}
