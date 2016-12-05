@@ -48,13 +48,59 @@ Accepted values are
 # APIs
 
 <div class="list-group table-of-contents">
-{{#each paths}}
-    {{#this}}
-    {{#get}}<a class="list-group-item" href="#{{get.operationId}}">GET {{@key}}</a>{{/get}}
-    {{#post}}<a class="list-group-item" href="#{{post.operationId}}">POST {{@key}}</a>{{/post}}
-    {{#put}}<a class="list-group-item" href="#{{put.operationId}}">PUT {{@key}}</a>{{/put}}
-    {{/this}}
-{{/each}}
+    <table>
+        <thead>
+        <tr>
+            <th>Code</th>
+            <th>Method</th>
+            <th>URL</th>
+            <th>Description</th>
+            <th>S</th>
+            <th>O</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {{#each paths}}
+            {{#this}}
+                {{#get}}
+                    <tr>
+                        <td>{{get.vendorExtensions.x-api-code}}</td>
+                        <td>GET</td>
+                        <td><a href="#{{get.operationId}}">{{@key}}</a></td>
+                        <td>{{get.summary}}</td>
+                        <td>{{get.tags}}</td>
+                        <td></td>
+                    </tr>
+                {{/get}}
+
+                {{#post}}
+                    <tr>
+                        <td>{{post.vendorExtensions.x-api-code}}</td>
+                        <td>POST</td>
+                        <td><a href="#{{post.operationId}}">{{@key}}</a></td>
+                        <td>{{post.summary}}</td>
+                        <td>{{post.tags}}</td>
+                        <td></td>
+                    </tr>
+                {{/post}}
+
+                {{#put}}
+                    <tr>
+                        <td>{{put.vendorExtensions.x-api-code}}</td>
+                        <td>PUT</td>
+                        <td><a href="#{{put.operationId}}">{{@key}}</a></td>
+                        <td>{{put.summary}}</td>
+                        <td>{{put.tags}}</td>
+                        <td></td>
+                    </tr>
+                {{/put}}
+
+            {{/this}}
+        {{/each}}
+        </tbody>
+    </table>
+
 </div>
 
 
