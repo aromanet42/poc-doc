@@ -25,6 +25,7 @@ public class ServiceController {
     @ApiOperation(value = "Method renvoyant un Service quand lersevrice fezfezf" +
             "fzefjkezjflkejf" +
             "fjepjfze")
+    @ApiLogging(code = ApiCode.S01)
     public Service getMyService() {
         return new Service("DFKEFJ", "DSISDKF");
     }
@@ -34,12 +35,14 @@ public class ServiceController {
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ApiOperation(value = "creates a service")
     @Deprecated
+    @ApiLogging(code = ApiCode.S02)
     public void serviceCreation(@RequestBody @ApiParam("service à créer") Service service) {
     }
 
     @RequestMapping(value = "/orderBean", method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @ApiOperation(value = "creates a new order", tags = "shop", notes = "koko")
+    @ApiLogging(code = ApiCode.OB01)
     public OrderBean orderBean() {
         OrderBean orderBean = new OrderBean();
         orderBean.setChannelCode("ChannelCode");

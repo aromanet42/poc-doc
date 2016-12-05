@@ -162,6 +162,7 @@
 
                             <templatePath>${basedir}/src/docs/templates/strapdown.html.hbs</templatePath>
                             <modelConverters>com.example.swagger.ModelConverter</modelConverters>
+                            <swaggerApiReader>com.example.swagger.SwaggerApiReader</swaggerApiReader>
                         </apiSource>
                     </apiSources>
                 </configuration>
