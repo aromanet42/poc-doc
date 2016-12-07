@@ -1,16 +1,16 @@
 package com.example.swagger;
 
 import com.example.ApiLogging;
-import com.github.kongchen.swagger.docgen.LogAdapter;
 import com.github.kongchen.swagger.docgen.reader.SpringMvcApiReader;
 import io.swagger.models.Operation;
 import io.swagger.models.Swagger;
+import org.apache.maven.plugin.logging.Log;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 public class SwaggerApiReader extends SpringMvcApiReader {
-    public SwaggerApiReader(Swagger swagger, LogAdapter LOG) {
+    public SwaggerApiReader(Swagger swagger, Log LOG) {
         super(swagger, LOG);
         this.setTypesToSkip(new ArrayList<>());
 

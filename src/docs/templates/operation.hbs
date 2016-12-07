@@ -24,7 +24,7 @@
 {{#if consumes}}
 **Content-Type: ** {{join consumes ", "}}
 
-{{#each consumes}}{{> snippet}}
+{{#each consumes}}{{> snippet type='request'}}
 {{/each}}
 
 {{/if}}
@@ -69,8 +69,9 @@
 
 ##### CURL
 
-<div class="curl" id="curl-{{operationId}}" data-operationId="{{operationId}}"
-     data-hide-on-load-error="h5"></div>
+<div data-hide-on-load-error="h5">
+{{{block (join "snippets/" operationId "/curl-request" "")}}}
+</div>
 
 
 #### Response
@@ -78,7 +79,7 @@
 {{#if produces}}**Content-Type: ** {{join produces ", "}}
 {{/if}}
 
-{{#each produces}}{{> snippet}}
+{{#each produces}}{{> snippet type='response'}}
 {{/each}}
 
 

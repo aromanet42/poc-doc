@@ -2,8 +2,14 @@
     <a class="btn btn-primary" data-toggle="collapse" href="#{{basename this}}-{{operationId}}">{{this}}</a>
 
     <div class="snippet collapse" id="{{basename this}}-{{operationId}}" data-operationId="{{operationId}}"
-         data-type="{{this}}" data-io="response" data-hide-on-load-error=".snippet-wrapper">json
-        response
+         data-type="{{this}}" data-hide-on-load-error=".snippet-wrapper" data-toto="{{type}}">
+
+        {{#ifeq this 'application/xml'}}
+            {{block (join "snippets/" operationId "_xml/http-" type "")}}
+        {{else}}
+            {{block (join "snippets/" operationId "/http-" type "")}}
+        {{/ifeq}}
+
     </div>
 
 </div>

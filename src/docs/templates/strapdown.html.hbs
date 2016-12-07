@@ -14,38 +14,24 @@
 
 <script type="text/javascript">
     $().ready(function () {
-        function loadHtml(element, url) {
-            element.load(url, function(response, status){
-                if(status == 'error'){
-                    element.hide();
-
-                    var elementToHide = element.attr('data-hide-on-load-error');
-                    if(elementToHide !== undefined){
-                        element.prev(elementToHide).hide();
-                        element.parent(elementToHide).hide();
-                    }
-                }
-            });
-        }
-
-        $('.curl').each(function () {
-            var operationId = $(this).attr('data-operationId');
-            loadHtml($(this), "../snippets/" + operationId + "/curl-request.html");
-        });
 
         $('.snippet').each(function () {
-            var operationId = $(this).attr('data-operationId');
-            var ioType = $(this).attr('data-io');
-            var mediaType = $(this).attr('data-type');
-
-            var directory = operationId;
-            if(mediaType == 'application/xml') {
-                directory += "_xml";
-            }
-
-            loadHtml($(this), "../snippets/" + directory + "/http-" + ioType + ".html");
+            $(this).html($(this).text());
         });
 
+        $('[data-hide-on-load-error]').each(function () {
+            element = $(this);
+
+            if(!element.text().trim()) {
+                element.hide();
+
+                var elementToHide = element.attr('data-hide-on-load-error');
+                if(elementToHide !== undefined){
+                    element.prev(elementToHide).hide();
+                    element.parent(elementToHide).hide();
+                }
+            }
+        });
     });
 </script>
 

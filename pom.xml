@@ -50,7 +50,7 @@
 
         <doc.path>${project.build.directory}/docs</doc.path>
         <swagger.json.path>${doc.path}/1-swagger</swagger.json.path>
-        <asciidoc.path>${doc.path}/2-asciidoc</asciidoc.path>
+        <hbs.path>${doc.path}/2-hbs</hbs.path>
         <html.path>${doc.path}/3-html</html.path>
 
     </properties>
@@ -83,7 +83,7 @@
         <dependency>
             <groupId>com.github.kongchen</groupId>
             <artifactId>swagger-maven-plugin</artifactId>
-            <version>3.1.3</version>
+            <version>3.1.4</version>
             <scope>provided</scope>
         </dependency>
 
@@ -116,7 +116,7 @@
                     <backend>html</backend>
                     <doctype>book</doctype>
                     <sourceDirectory>${project.build.directory}/generated-snippets</sourceDirectory>
-                    <outputDirectory>${html.path}/snippets</outputDirectory>
+                    <outputDirectory>${hbs.path}/html/snippets</outputDirectory>
                     <preserveDirectories>true</preserveDirectories>
                     <headerFooter>false</headerFooter>
                 </configuration>
@@ -131,11 +131,40 @@
                 </executions>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+
+                        <configuration>
+                            <target>
+                                <!-- Handlebars cannot include html files. It can only include hbs files.
+                                    So we rename all snippets HTML files to *.hbs files -->
+                                <copy todir="${hbs.path}/snippets">
+                                    <fileset dir="${hbs.path}/html/snippets"/>
+                                    <globmapper from="*.html" to="*.hbs"/>
+                                </copy>
+                                <!-- Moving .hbs sources files next to snippets -->
+                                <copy todir="${hbs.path}">
+                                    <fileset dir="${basedir}/src/docs/templates"/>
+                                </copy>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!-- Generate Doc from Swagger annotations and Handlebars (hbs) templates-->
             <plugin>
                 <groupId>com.github.kongchen</groupId>
                 <artifactId>swagger-maven-plugin</artifactId>
-                <version>3.1.3</version>
+                <version>3.1.4</version>
                 <configuration>
                     <apiSources>
                         <apiSource>
@@ -160,7 +189,7 @@
                                 </license>
                             </info>
 
-                            <templatePath>${basedir}/src/docs/templates/strapdown.html.hbs</templatePath>
+                            <templatePath>${hbs.path}/strapdown.html.hbs</templatePath>
                             <modelConverters>com.example.swagger.ModelConverter</modelConverters>
                             <swaggerApiReader>com.example.swagger.SwaggerApiReader</swaggerApiReader>
                         </apiSource>
@@ -202,6 +231,14 @@
                         </configuration>
                     </execution>
                 </executions>
+                <dependencies>
+                    <!-- upgrade handlebar dependency to get dynamic partials https://github.com/jknack/handlebars.java/issues/350 -->
+                    <dependency>
+                        <groupId>com.github.jknack</groupId>
+                        <artifactId>handlebars</artifactId>
+                        <version>2.2.0</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
             <!-- some resources are needed by doc -->
