@@ -64,36 +64,15 @@ Accepted values are
         {{#each paths}}
             {{#this}}
                 {{#get}}
-                    <tr>
-                        <td>{{get.vendorExtensions.x-api-code}}</td>
-                        <td>GET</td>
-                        <td><a href="#{{get.operationId}}">{{@key}}</a></td>
-                        <td>{{get.summary}}</td>
-                        <td>{{get.tags}}</td>
-                        <td></td>
-                    </tr>
+                    {{> summary-line that=get method='GET' path=@key}}
                 {{/get}}
 
                 {{#post}}
-                    <tr>
-                        <td>{{post.vendorExtensions.x-api-code}}</td>
-                        <td>POST</td>
-                        <td><a href="#{{post.operationId}}">{{@key}}</a></td>
-                        <td>{{post.summary}}</td>
-                        <td>{{post.tags}}</td>
-                        <td></td>
-                    </tr>
+                    {{> summary-line that=post method='POST' path=@key}}
                 {{/post}}
 
                 {{#put}}
-                    <tr>
-                        <td>{{put.vendorExtensions.x-api-code}}</td>
-                        <td>PUT</td>
-                        <td><a href="#{{put.operationId}}">{{@key}}</a></td>
-                        <td>{{put.summary}}</td>
-                        <td>{{put.tags}}</td>
-                        <td></td>
-                    </tr>
+                    {{> summary-line that=put method='PUT' path=@key}}
                 {{/put}}
 
             {{/this}}
@@ -105,44 +84,26 @@ Accepted values are
 
 
 {{#each paths}}
-## {{@key}}
 {{#this}}
 {{#get}}
-### GET
+## GET {{@key}}
 {{> operation}}
 {{/get}}
 
 {{#put}}
-### PUT
+## PUT {{@key}}
 {{> operation}}
 {{/put}}
 
 {{#post}}
-### POST
-
+## POST {{@key}}
 {{> operation}}
-
 {{/post}}
 
 {{#delete}}
-### DELETE
+## DELETE {{@key}}
 {{> operation}}
 {{/delete}}
-
-{{#option}}
-### OPTION
-{{> operation}}
-{{/option}}
-
-{{#patch}}
-### PATCH
-{{> operation}}
-{{/patch}}
-
-{{#head}}
-### HEAD
-{{> operation}}
-{{/head}}
 
 {{/this}}
 {{/each}}
